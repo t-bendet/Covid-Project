@@ -1,6 +1,15 @@
-*{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
+.container {
+  height: 700px;
+  width: 80vw;
+}
