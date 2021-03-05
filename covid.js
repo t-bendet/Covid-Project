@@ -52,18 +52,41 @@ async function CreateDataObject() {
           let parm = conTLD.slice(1).toUpperCase();
           if (info.code == parm) {
             val.set("info", info);
-            // console.log(val)
           }
         }
       }
     }
   }
-  // TODO  "Europe -Kosovo, United Kingdom","Americas -Bonaire"add contries
+  // TODO  "Europe -Kosovo, United Kingdom","Americas -Bonaire"add contries delete or fix
   return world;
 }
 
 async function mainData() {
   const worldMap = await CreateDataObject();
-  console.log(worldMap.get("Asia"));
+  function regionsData(region, data) {
+    const arrayContries = []; //cont
+    const arrayCases = []; //data
+    for (const [key, val] of worldMap.get(region)) {
+      arrayContries.push(key);
+      arrayCases.push(val.get("info").latest_data[data]);
+    }
+    console.log([arrayContries, arrayCases]); //remove
+    return [arrayContries, arrayCases];
+  }
+  function contriesData(region, contry) {
+    const data = worldMap.get(region).get(contry).get("info");
+    const data2 = {
+      confirmed: data.latest_data.confirmed,
+      critical: data.latest_data.critical,
+      deaths: data.latest_data.deaths,
+      recovered: data.latest_data.recovered,
+      deaths_today: data.today.deaths,
+      confirmed_today: data.today.confirmed,
+    };
+    console.log(data2); //remove
+  }
+  contriesData("Asia", "Israel");
+  regions("Asia", "confirmed");
 }
 mainData();
+

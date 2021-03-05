@@ -17203,25 +17203,22 @@ function CreateDataObject() {
   }
   //looping over world regions and asaiging covid info to each country
   for (const info of covidArray) {
-    for (const [region,countries] of world) {
-      for(const [cont,val]of countries){
-        let conTLD = val.get("TLD")
-        if(conTLD){
-          let parm =conTLD.slice(1).toUpperCase()
-          if(info.code == parm){
-            val.set("info",info)
+    for (const [region, countries] of world) {
+      for (const [cont, val] of countries) {
+        let conTLD = val.get("TLD");
+        if (conTLD) {
+          let parm = conTLD.slice(1).toUpperCase();
+          if (info.code == parm) {
+            val.set("info", info);
             // console.log(val)
           }
         }
-
       }
-
     }
   }
 
   return world;
 }
-
 
 // "Europe -Kosovo United Kingdom",
 // "Americas Bonaire"

@@ -16,9 +16,9 @@
 
 ## formating data for libaries
 
-- [ ] functions for getting data (africa,confirmed cases) (isreal,all parms.....)
-- [ ] divide to Regions total cases,new cases,total deaths,new deaths,total recovered,in critical condition,
-- [ ] conteries :Confirmed Cases,Number of Deaths,Number of recovered,Number of critical condition
+- [x] functions for getting data (africa,confirmed cases) (isreal,all parms.....)
+- [x] divide to Regions total cases,new cases,total deaths,new deaths,total recovered,in critical condition,
+- [x] conteries :Confirmed Cases,Number of Deaths,Number of recovered,Number of critical condition
 - [ ] injecting data into chart js
 
 ## create elements and display data
