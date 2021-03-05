@@ -1,1 +1,0 @@
-https://api.codetabs.com/v1/proxy?quest=https://restcountries.herokuapp.com/api/v1
