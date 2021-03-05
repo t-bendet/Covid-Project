@@ -3,17 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/normalize.css" />
+    <!-- <link rel="stylesheet" href="./css/normalize.css" /> -->
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/utility.css" />
-
     <title>Covid Project</title>
   </head>
   <body>
-    <div class="container">
+    <h1>covid 19 stats</h1>
+    <!-- switch on click to specific country info -->
+    <!-- <div class="info-container">
       <canvas id="myChart"></canvas>
+    </div> -->
+    <div class="case-btns">
+      <button>comfirmed</button>
+      <button>deaths</button>
+      <button>recoverd</button>
+      <button>critical</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <div class="region-btns">
+      <button>asia</button>
+      <button>eu</button>
+    </div>
+    <div class="country-btns"></div>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
     <script src="./covid.js"></script>
   </body>
 </html>
