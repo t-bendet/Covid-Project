@@ -29,10 +29,3 @@
 ## css
 
 - [x] ohhhh shiny
-
-## ninja
-
-1. Add more features. You can do much more with this API
-2. Tweak the performance. Maybe local storage can help us here
-3. Create a spinner when the data is loading. or ither cool animation
-4. adiitional data on contry :contry api (borders,capital),covidapi(updated_at)

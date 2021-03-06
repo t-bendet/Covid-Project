@@ -10,7 +10,6 @@ async function getInitialData() {
 const $ = (x) => document.querySelector(x);
 const body = $("body");
 
-//TODO add callbacks as parms
 async function CreateDataObject() {
   // creating world
   const world = new Map([
@@ -63,15 +62,14 @@ async function CreateDataObject() {
       }
     }
   }
-  // last contry that dose not have info
-  world.get("Europe").delete("Kosovo"); //TODO make more dynamic
-  // for (const [region, countries] of world) {
-  //   for (const [cont, val] of countries) {
-  //     if (!val.has("info")) {
-  //       console.log(val);
-  //     }
-  //   }
-  // }
+  //
+  for (const [region, countries] of world) {
+    for (const [cont, val] of countries) {
+      if (!val.has("info")) {
+        world.get(region).delete(cont);
+      }
+    }
+  }
   return world;
 }
 
@@ -142,7 +140,7 @@ async function initChart(chartReg, chartData) {
         {
           label: nameLabel,
           backgroundColor: "rgb(231, 197, 0)",
-          borderColor: "rgb(0, 0, 0)",
+          borderColor: "rgb(80, 55, 65",
           fontcolor: "red",
           data: covidLabel,
         },
