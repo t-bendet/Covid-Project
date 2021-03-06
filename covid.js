@@ -7,6 +7,9 @@ async function getInitialData() {
   const countriesData = await countriesPromise.json(); //array of objects countriesData[x]
   return [covidData.data, countriesData];
 }
+const $ = (x) => document.querySelector(x);
+const body = $("body");
+
 //TODO add callbacks as parms
 async function CreateDataObject() {
   // creating world
@@ -72,28 +75,38 @@ async function CreateDataObject() {
   return world;
 }
 
-async function mainDataFunctions() {
+async function regionsDataFunction() {
   const worldMap = await CreateDataObject();
-  function regionsData(region, data) {
+  function regionsData(funRegion, funData) {
     const arrayContries = [];
     const arrayCases = [];
-    if (region == "World") {
+    if (funRegion == "World") {
       for (const [reg, con] of worldMap) {
         for (const [key, val] of worldMap.get(reg)) {
           arrayContries.push(key);
-          arrayCases.push(val.get("info").latest_data[data]);
+          arrayCases.push(val.get("info").latest_data[funData]);
         }
       }
     } else {
-      for (const [key, val] of worldMap.get(region)) {
+      for (const [key, val] of worldMap.get(funRegion)) {
         arrayContries.push(key);
-        arrayCases.push(val.get("info").latest_data[data]);
+        arrayCases.push(val.get("info").latest_data[funData]);
       }
     }
-    return [arrayContries, arrayCases, data];
+    return [arrayContries, arrayCases, funData];
   }
-  function contriesData(region, contry) {
-    const data = worldMap.get(region).get(contry).get("info");
+  return regionsData;
+}
+async function contriesDataFunction() {
+  const worldMap = await CreateDataObject();
+  let regi;
+  function contriesData(contry) {
+    for (const [key, val] of worldMap) {
+      if (val.has(contry)) {
+        regi = key;
+      }
+    }
+    const data = worldMap.get(regi).get(contry).get("info");
     const data2 = {
       confirmed: data.latest_data.confirmed,
       critical: data.latest_data.critical,
@@ -104,18 +117,23 @@ async function mainDataFunctions() {
     };
     return data2;
   }
-  return [regionsData, contriesData];
+  return contriesData;
 }
-async function initCharts() {
-  const [regionsChart, countriesChart] = await mainDataFunctions();
-  const [conLabel, covidLabel, nameLabel] = await regionsChart(
-    "World",
-    "confirmed"
+//
+const infoContainer = $(".info-container");
+
+async function initChart(chartReg, chartData) {
+  let regionsChart = await regionsDataFunction();
+  let [conLabel, covidLabel, nameLabel] = await regionsChart(
+    chartReg,
+    chartData
   );
-  const x = await countriesChart("Asia", "Israel");
-  console.log(x);
-  const ctx = document.getElementById("myChart").getContext("2d");
-  const chart = new Chart(ctx, {
+  infoContainer.innerHTML = "";
+  let canvas = document.createElement("canvas");
+  canvas.setAttribute("id", "myChart");
+  infoContainer.appendChild(canvas);
+  let ctx = document.getElementById("myChart").getContext("2d");
+  let chart = new Chart(ctx, {
     type: "line",
     data: {
       labels: conLabel,
@@ -130,5 +148,55 @@ async function initCharts() {
     },
     options: {},
   });
+  chart.canvas.parentNode.style.height = "700px";
+  chart.canvas.parentNode.style.width = "800px";
+  countryBtns.innerHTML = "";
+  for (let conBtn of conLabel) {
+    let btn = document.createElement("button");
+    btn.innerText = conBtn;
+    countryBtns.appendChild(btn);
+  }
 }
-initCharts();
+
+async function initboxes(e) {
+  let contrey = e.target.innerText;
+  let contryBoxes = await contriesDataFunction();
+  let info = await contryBoxes(contrey);
+  infoContainer.innerHTML = "";
+  for (let [key, value] of Object.entries(info)) {
+    let box = document.createElement("div");
+    let h5 = document.createElement("h5");
+    h5.innerText = key;
+    box.appendChild(h5);
+    let p = document.createElement("p");
+    p.innerText = value;
+    box.appendChild(p);
+    infoContainer.appendChild(box);
+  }
+}
+const chartTemp = {
+  data: "confirmed",
+  reg: "Asia",
+};
+
+//
+const regionBtns = $(".region-btns");
+//
+regionBtns.addEventListener("click", async (e) => {
+  let eventReg = e.target.innerText;
+  chartTemp.reg = eventReg;
+  let eventData = chartTemp.data;
+  initChart(eventReg, eventData);
+});
+//
+const CaseBtns = $(".case-btns");
+//
+CaseBtns.addEventListener("click", async (e) => {
+  let eventData2 = e.target.innerText;
+  chartTemp.data = eventData2;
+  let eventReg2 = chartTemp.reg;
+  initChart(eventReg2, eventData2);
+});
+
+const countryBtns = $(".country-btns");
+countryBtns.addEventListener("click", initboxes);

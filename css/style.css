@@ -7,11 +7,35 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
-
+.title {
+  height: 60px;
+  background-color: aquamarine;
+  margin: 0;
+}
 .info-container {
-  height: 500px;
-  width: 70vw;
+  position: relative;
+  background-color: red;
+  min-height: 300px;
+}
+.region-btns {
+  z-index: 1;
+  margin: 0.5rem;
+
+  height: 80px;
+  background-color: blue;
+}
+.case-btns {
+  margin: 0.5rem;
+
+  height: 80px;
+  background-color: gold;
+}
+.country-btns {
+  margin: 0.5rem;
+
+  background-color: green;
+  min-height: 200px;
 }

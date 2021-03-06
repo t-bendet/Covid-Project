@@ -4,16 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/normalize.css" />
+
     <link rel="stylesheet" href="./css/style.css" />
-    <link href="./favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="./images/favicon.ico" rel="icon" type="image/x-icon" />
     <title>Covid Project</title>
   </head>
   <body>
-    <h1>covid 19 stats</h1>
+    <h1 class="title">covid 19 stats</h1>
     <!-- switch on click to specific country info -->
-    <div class="info-container">
-      <canvas id="myChart"></canvas>
-    </div>
+    <div class="info-container"></div>
     <div class="region-btns">
       <button>Asia</button>
       <button>Europe</button>
@@ -24,13 +23,13 @@
       <button>World</button>
     </div>
     <div class="case-btns">
-      <button>Comfirmed</button>
-      <button>Deaths</button>
-      <button>Recoverd</button>
-      <button>Critical</button>
+      <button>confirmed</button>
+      <button>deaths</button>
+      <button>recovered</button>
+      <button>critical</button>
     </div>
     <div class="country-btns"></div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="./covid.js"></script>
+    <script defer src="./covid.js"></script>
   </body>
 </html>
