@@ -19,14 +19,12 @@
 - [x] functions for getting data (africa,confirmed cases) (isreal,all parms.....)
 - [x] divide to Regions total cases,new cases,total deaths,new deaths,total recovered,in critical condition,
 - [x] conteries :Confirmed Cases,Number of Deaths,Number of recovered,Number of critical condition
-- [ ] injecting data into chart js
+- [x] injecting data into chart js
 
 ## create elements and display data
 
-- [ ] hard code html general structure
-- [ ] Q:what is created on the fly with j.s?
-- [ ] Q:true/false for contennint btn?
-- [ ] manipulating data into the dom with pre-build grid/flex or any other method
+- [x] hard code html general structure
+- [x] Q:what is created on the fly with j.s?
 
 ## css
 
@@ -42,3 +40,4 @@
 6. devision by sub regions
 7. more forms of chrts
 8. adiitional data on contry :contry api (borders,capital),covidapi(updated_at)
+9. add favicon

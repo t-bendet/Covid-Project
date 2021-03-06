@@ -4,12 +4,14 @@
   padding: 0px;
 }
 body {
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 
-.container {
-  height: 700px;
-  width: 80vw;
+.info-container {
+  height: 500px;
+  width: 70vw;
 }

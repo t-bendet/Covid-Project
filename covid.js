@@ -4,11 +4,10 @@ async function getInitialData() {
   const countriesPromise = await fetch(
     "https://api.codetabs.com/v1/proxy?quest=https://restcountries.herokuapp.com/api/v1"
   );
-
   const countriesData = await countriesPromise.json(); //array of objects countriesData[x]
   return [covidData.data, countriesData];
 }
-//
+//TODO add callbacks as parms
 async function CreateDataObject() {
   // creating world
   const world = new Map([
@@ -43,7 +42,7 @@ async function CreateDataObject() {
       world.get("Who Lives Here?").get(trimName).set("TLD", countrie.tld[0]);
     }
   }
-  // looping over world regions and asaiging covid info to each country
+  // looping over world regions and assigning covid info to each country via tld/code
   for (const info of covidArray) {
     for (const [region, countries] of world) {
       for (const [cont, val] of countries) {
@@ -52,26 +51,46 @@ async function CreateDataObject() {
           let parm = conTLD.slice(1).toUpperCase();
           if (info.code == parm) {
             val.set("info", info);
+          } else if (info.code == "GB") {
+            world.get("Europe").get("United Kingdom").set("info", info);
+          } else if (info.code == "BQ") {
+            world.get("Americas").get("Bonaire").set("info", info);
           }
         }
       }
     }
   }
-  // TODO  "Europe -Kosovo, United Kingdom","Americas -Bonaire"add contries delete or fix
+  // last contry that dose not have info
+  world.get("Europe").delete("Kosovo"); //TODO make more dynamic
+  // for (const [region, countries] of world) {
+  //   for (const [cont, val] of countries) {
+  //     if (!val.has("info")) {
+  //       console.log(val);
+  //     }
+  //   }
+  // }
   return world;
 }
 
-async function mainData() {
+async function mainDataFunctions() {
   const worldMap = await CreateDataObject();
   function regionsData(region, data) {
-    const arrayContries = []; //cont
-    const arrayCases = []; //data
-    for (const [key, val] of worldMap.get(region)) {
-      arrayContries.push(key);
-      arrayCases.push(val.get("info").latest_data[data]);
+    const arrayContries = [];
+    const arrayCases = [];
+    if (region == "World") {
+      for (const [reg, con] of worldMap) {
+        for (const [key, val] of worldMap.get(reg)) {
+          arrayContries.push(key);
+          arrayCases.push(val.get("info").latest_data[data]);
+        }
+      }
+    } else {
+      for (const [key, val] of worldMap.get(region)) {
+        arrayContries.push(key);
+        arrayCases.push(val.get("info").latest_data[data]);
+      }
     }
-    console.log([arrayContries, arrayCases]); //remove
-    return [arrayContries, arrayCases];
+    return [arrayContries, arrayCases, data];
   }
   function contriesData(region, contry) {
     const data = worldMap.get(region).get(contry).get("info");
@@ -83,10 +102,33 @@ async function mainData() {
       deaths_today: data.today.deaths,
       confirmed_today: data.today.confirmed,
     };
-    console.log(data2); //remove
+    return data2;
   }
-  contriesData("Asia", "Israel");
-  regions("Asia", "confirmed");
+  return [regionsData, contriesData];
 }
-mainData();
-
+async function initCharts() {
+  const [regionsChart, countriesChart] = await mainDataFunctions();
+  const [conLabel, covidLabel, nameLabel] = await regionsChart(
+    "World",
+    "confirmed"
+  );
+  const x = await countriesChart("Asia", "Israel");
+  console.log(x);
+  const ctx = document.getElementById("myChart").getContext("2d");
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: conLabel,
+      datasets: [
+        {
+          label: nameLabel,
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          data: covidLabel,
+        },
+      ],
+    },
+    options: {},
+  });
+}
+initCharts();
