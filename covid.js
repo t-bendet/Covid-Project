@@ -114,6 +114,7 @@ async function contriesDataFunction() {
       recovered: data.latest_data.recovered,
       deaths_today: data.today.deaths,
       confirmed_today: data.today.confirmed,
+      population: data.population,
     };
     return data2;
   }
@@ -140,16 +141,16 @@ async function initChart(chartReg, chartData) {
       datasets: [
         {
           label: nameLabel,
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgb(231, 197, 0)",
+          borderColor: "rgb(0, 0, 0)",
+          fontcolor: "red",
           data: covidLabel,
         },
       ],
     },
     options: {},
   });
-  chart.canvas.parentNode.style.height = "700px";
-  chart.canvas.parentNode.style.width = "800px";
+  Chart.defaults.global.defaultFontColor = "#fff";
   countryBtns.innerHTML = "";
   for (let conBtn of conLabel) {
     let btn = document.createElement("button");
@@ -165,6 +166,7 @@ async function initboxes(e) {
   infoContainer.innerHTML = "";
   for (let [key, value] of Object.entries(info)) {
     let box = document.createElement("div");
+    box.classList.add("box");
     let h5 = document.createElement("h5");
     h5.innerText = key;
     box.appendChild(h5);

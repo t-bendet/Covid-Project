@@ -28,14 +28,11 @@
 
 ## css
 
-- [ ] ohhhh shiny
+- [x] ohhhh shiny
 
 ## ninja
 
 1. Add more features. You can do much more with this API
 2. Tweak the performance. Maybe local storage can help us here
 3. Create a spinner when the data is loading. or ither cool animation
-4. Disable the buttons when you send an api request. Now what happens is you can click numerous of times on a button and it will send numerous times an api request. But we really only need one.
-5. devision by sub regions
-6. more forms of chrts
-7. adiitional data on contry :contry api (borders,capital),covidapi(updated_at)
+4. adiitional data on contry :contry api (borders,capital),covidapi(updated_at)
