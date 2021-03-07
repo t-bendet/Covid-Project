@@ -18,3 +18,6 @@ i'm still fetching the data each time the chart changes
 1. still slow on loading becuse a lot of calls to the api's
 2. the chart is not responsive and is with fixed hight and width
 3. not a real bug but the "Who Lives Here" region doesnt have almost any data but i'm an equal opportunity developer and it made me laugh so...(:
+
+## netlify
+https://naughty-tereshkova-0e64c2.netlify.app/
